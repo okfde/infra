@@ -1,0 +1,17 @@
+---
+#- name: ensure there is an foo group
+#  group: name=foo
+#         gid=1337
+#         state=present
+
+#- name: ensure the bar users are there
+#  user: name="{{item.name}}"
+#        uid="{{item.uid}}"
+#        home="{{item.home}}"
+#        password="{{item.password}}"
+#        comment="{{item.comment}}"
+#        group=escience
+#        shell=/bin/bash
+#        state=present
+#  with_flattened:
+#  - users.bar
