@@ -1,0 +1,10 @@
+---
+- hosts: brandt
+  sudo: yes
+  vars_files:
+  - vars/users.yml
+  roles:
+  - users
+  tags:
+  - users
+  

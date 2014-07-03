@@ -1,7 +1,22 @@
 ---
 users:
-  bar:
+  brandt:
+  - name: fl
+    comment: Friedrich Lindenberg
+  - name: sw
+    comment: Stefan Wehrmeyer
   - name: jk
     comment: Jochen Klar
-    uid: 1420
-  - 
+  - name: mj
+    comment: Morris Jobbke
+  - name: tike
+    comment: Timo Kessler
+    shell: /usr/bin/zsh
+  - name: ve
+    comment: Volker Eichhorn
+  - name: fe
+    comment: Felix Ebert
+  - name: matt
+    comment: Matt Fullerton
+  - name: ddie
+    comment: Daniel Dietrich
