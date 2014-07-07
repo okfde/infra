@@ -1,0 +1,32 @@
+---
+- hosts: ris
+  remote_user: "{{ user }}"
+  sudo: yes
+  tasks:
+
+  - name: Install nginx
+    apt: name=wget state=latest
+
+  - name: Install MongoDB Repository Key
+    apt_key: id=7F0CEB10 url=http://docs.mongodb.org/10gen-gpg-key.asc state=present
+
+  - name: Install MongoDB Repository
+    apt_repository: repo='deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' state=present update_cache=yes
+
+  - name: Install MongoDB
+    apt: name=mongodb-org state=latest
+
+  - name: Install SupervisorD
+    apt: name=supervisor state=latest
+
+  - name: Download ElasticSearch
+    shell: cd /tmp && wget -q -nc https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb
+
+  - name: Install ElasticSearch
+    apt: deb=/tmp/elasticsearch-1.2.1.deb
+
+  - name: Start ElasticSearch
+    service: name=elasticsearch state=started
+
+  - name: Start MongoDB
+    service: name=mongod state=started

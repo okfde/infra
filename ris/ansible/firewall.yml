@@ -1,0 +1,46 @@
+---
+- hosts: ris
+  remote_user: "{{ user }}"
+  sudo: yes
+  tasks:
+
+  - name: Disable ufw
+    ufw: state=disabled
+
+  - name: Set default firewall policy restrictive
+    ufw: state=enabled policy=deny
+
+  - name: Set default outgoing firewall policy permissive
+    ufw: direction=out rule=allow
+
+  - name: Limit SSH attempts to protect from DDOS attack
+    ufw: rule=limit port=ssh proto=tcp
+
+  - name: Allow incoming SSH connections
+    ufw: rule=allow name=OpenSSH direction=in
+
+  - name: Allow incoming HTTP connections
+    ufw: rule=allow port=80 direction=in proto=tcp
+
+  - name: Allow incoming access to Monitorix from everywhere
+    ufw: rule=allow port=8080 direction=in proto=tcp
+
+  - name: Allow incoming access to MongoDB from ris servers
+    ufw: rule=allow interface=eth0 direction=in proto=tcp src="{{ item }}" to_port=27017
+    with_items:
+    - 192.168.0.110
+    - 192.168.0.111
+
+  - name: Allow incoming access to MongoDB config servers from ris servers
+    ufw: rule=allow interface=eth0 direction=in proto=tcp src="{{ item }}" to_port=27019
+    with_items:
+    - 192.168.0.110
+    - 192.168.0.111
+
+  - name: Allow incoming access to ElasticSearch
+    ufw: rule=allow interface=eth0 direction=in proto=tcp src="{{ item }}" to_port=9200
+    with_items:
+    - 192.168.0.110
+    - 192.168.0.111
+
+

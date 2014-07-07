@@ -1,0 +1,30 @@
+---
+- hosts: ris
+  remote_user: "{{ user }}"
+  sudo: yes
+  tasks:
+
+  - name: Update apt cache
+    apt: update_cache=yes cache_valid_time=43200
+
+  - name: Upgrade installed packages
+    apt: upgrade=safe
+
+  - name: Install Monitorix.org Repository Key
+    apt_key: url=http://apt.izzysoft.de/izzysoft.asc state=present
+
+  - name: Install Monitorix.org Repository
+    apt_repository: repo="deb [arch=all] http://apt.izzysoft.de/ubuntu generic universe" state=present update_cache=yes
+
+  - name: Install/upgrade some basic packages
+    apt: name={{ item }} state=latest
+    with_items:
+    - wget
+    - monitorix
+    - openjdk-7-jre
+    - python-pip
+    - python-virtualenv
+    - logwatch
+
+  - name: Set up logwatch cronjob
+    cron: name="logwatch" hour=4 job="logwatch --detail low --range '-3 days'"
