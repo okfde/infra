@@ -28,3 +28,9 @@
 
   - name: Set up logwatch cronjob
     cron: name="logwatch" hour=4 job="logwatch --detail low --range '-3 days'"
+
+  - name: Set system time
+    shell: ntpdate -u de.pool.ntp.org
+
+  - name: Create cronjob to set system time
+    cron: name="ntp" hour=6 job="ntpdate -u de.pool.ntp.org > /dev/null"
