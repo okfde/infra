@@ -29,7 +29,7 @@
     shell: test -f elasticsearch-1.2.1.deb || wget -q -nc https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb
 
   - name: Install ElasticSearch
-    apt: deb=/tmp/elasticsearch-1.2.1.deb
+    apt: deb=elasticsearch-1.2.1.deb state=present
 
   - name: Start ElasticSearch
     service: name=elasticsearch state=started
