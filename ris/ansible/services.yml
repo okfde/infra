@@ -16,6 +16,12 @@
   - name: Install MongoDB
     apt: name=mongodb-org state=latest
 
+  - name: "Configure MongoDB: Set replica set name"
+    lineinfile: dest=/etc/mongod.conf state=present insertafter="#replSet=setname" line="replSet=set01"
+
+  - name: (Re-)start MongoDB
+    service: name=mongod state=restarted
+
   - name: Install SupervisorD
     apt: name=supervisor state=latest
 
@@ -28,5 +34,3 @@
   - name: Start ElasticSearch
     service: name=elasticsearch state=started
 
-  - name: Start MongoDB
-    service: name=mongod state=started
