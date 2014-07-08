@@ -19,6 +19,9 @@
   - name: "Configure MongoDB: Set replica set name"
     lineinfile: dest=/etc/mongod.conf state=present insertafter="#replSet=setname" line="replSet=set01"
 
+  - name: "Configure MongoDB: Listen to any IP address"
+    lineinfile: dest=/etc/selinux/config regexp=bind_ip line="bind_ip = 0.0.0.0"
+
   - name: (Re-)start MongoDB
     service: name=mongod state=restarted
 
