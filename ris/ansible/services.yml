@@ -20,7 +20,7 @@
     apt: name=supervisor state=latest
 
   - name: Download ElasticSearch
-    shell: cd /tmp && wget -q -nc https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb
+    shell: test -f elasticsearch-1.2.1.deb || wget -q -nc https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.2.1.deb
 
   - name: Install ElasticSearch
     apt: deb=/tmp/elasticsearch-1.2.1.deb
