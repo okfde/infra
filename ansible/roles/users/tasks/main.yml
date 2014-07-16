@@ -7,3 +7,15 @@
   when: ansible_hostname == "brandt"
   with_flattened:
   - users.brandt
+  tags:
+  - users
+
+- name: ensure the corresponding keys are there
+  authorized_key: user={{ item.0.name }}
+                  key="{{ lookup('file', inventory_dir + '/files/keys/' + item.1) }}"
+                  state=present
+  with_subelements:
+  - users.brandt
+  - keys
+  tags:
+  - keys

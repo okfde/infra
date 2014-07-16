@@ -1,22 +1,61 @@
 ---
 users:
   brandt:
+  - name: bbs
+    comment: buergerbautstadt.de
+    keys:
+    - jklar1.pub
+    - jklar2.pub
+    - jklar3.pub
+    - mnoffke.pub
+  - name: ddie
+    comment: Daniel Dietrich
+    keys:
+    - ddietrich.pub
+  - name: fe
+    comment: Felix Ebert
+    keys:
+    - febert1.pub
+    - febert2.pub
   - name: fl
     comment: Friedrich Lindenberg
-  - name: sw
-    comment: Stefan Wehrmeyer
+    keys:
+    - flindenberg.pub
   - name: jk
     comment: Jochen Klar
+    keys:
+    - jklar1.pub
+    - jklar2.pub
+    - jklar3.pub
+  - name: lvz-viz
+    comment: LVZ-VIZ
+    keys:
+    - lwesemann.pub
+  - name: matt
+    comment: Matt Fullerton
+    keys:
+    - mfullerton1.pub
+    - mfullerton2.pub
   - name: mj
     comment: Morris Jobbke
+    keys:
+    - mjobbke1.pub
+    - mjobbke2.pub
+  - name: opa
+    comment: offenesparlament.de
+    keys:
+    - flindenberg.pub
+    - rgieseke.pub
+  - name: sw
+    comment: Stefan Wehrmeyer
+    keys:
+    - swehrmeyer.pub
   - name: tike
     comment: Timo Kessler
     shell: /usr/bin/zsh
+    keys:
+    - tkessler.pub
   - name: ve
     comment: Volker Eichhorn
-  - name: fe
-    comment: Felix Ebert
-  - name: matt
-    comment: Matt Fullerton
-  - name: ddie
-    comment: Daniel Dietrich
+    keys:
+    - veichhorn.pub
