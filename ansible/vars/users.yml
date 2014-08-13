@@ -59,3 +59,6 @@ users:
     comment: Volker Eichhorn
     keys:
     - veichhorn.pub
+  - name: wahlversprechen
+    comment: wahlversprechen.de
+    keys: []

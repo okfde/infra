@@ -7,4 +7,11 @@
   - users
   tags:
   - users
-  
+
+- hosts: brandt
+  sudo: yes
+  sudo_user: wahlversprechen
+  roles:
+  - wahlversprechen
+  tags:
+  - wahlversprechen

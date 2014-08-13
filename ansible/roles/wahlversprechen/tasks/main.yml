@@ -1,0 +1,24 @@
+---
+- name: "clone the repository"
+  git: repo=https://github.com/stheophil/wahlversprechen.git
+       dest=/home/wahlversprechen/wahlversprechen
+
+- name: "fetch Scala Build Tool"
+  get_url: url=http://dl.bintray.com/sbt/native-packages/sbt/0.13.5/sbt-0.13.5.zip
+           dest=/home/wahlversprechen/sbt-0.13.5.zip
+
+- name: "unzip Scala Build Tool"
+  unarchive: src=/home/wahlversprechen/sbt-0.13.5.zip 
+             dest=/home/wahlversprechen/
+             copy=no
+
+- name: "build the app"
+  command: /home/wahlversprechen/sbt/bin/sbt stage
+           chdir=/home/wahlversprechen/wahlversprechen
+
+- name: "fetch shoreman"
+  command: curl https://github.com/hecticjeff/shoreman/raw/master/shoreman.sh -sLo shoreman
+           chdir=/home/wahlversprechen/
+
+- name: 'chmod shoreman file'
+  file: path=/home/wahlversprechen/shoreman mode=0755
