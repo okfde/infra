@@ -1,0 +1,40 @@
+---
+users:
+  erhard:
+  - name: ddie
+    comment: Daniel Dietrich
+    keys:
+    - ddietrich.pub
+  - name: fl
+    comment: Friedrich Lindenberg
+    keys:
+    - flindenberg.pub
+  - name: jk
+    comment: Jochen Klar
+    keys:
+    - jklar1.pub
+    - jklar2.pub
+    - jklar3.pub
+  - name: matt
+    comment: Matt Fullerton
+    keys:
+    - mfullerton1.pub
+    - mfullerton2.pub
+  - name: mj
+    comment: Morris Jobbke
+    keys:
+    - mjobbke1.pub
+    - mjobbke2.pub
+  - name: opa
+    comment: offenesparlament.de
+    keys:
+    - flindenberg.pub
+    - rgieseke.pub
+  - name: sw
+    comment: Stefan Wehrmeyer
+    keys:
+    - swehrmeyer.pub
+  - name: mf
+    comment: Mila Frerichs
+    keys:
+    - mfrerichs.pub
