@@ -1,0 +1,5 @@
+[erhard]
+erhard.okfn.de
+
+[erhard:vars]
+ansible_ssh_user=mila
