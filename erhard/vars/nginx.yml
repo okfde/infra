@@ -1,0 +1,6 @@
+nginx_max_clients: 1000
+nginx_sites:
+  default:
+    - listen 8080
+    - root /workdir
+    - location / { proxy_pass http://127.0.0.1:5000; }
