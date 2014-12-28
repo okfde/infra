@@ -5,9 +5,9 @@
 
 FROM cygri/ckan:2.3a
 
-# Install git, supervisor, libxml
+# Install git, supervisor, libxml, psql
 RUN DEBIAN_FRONTEND=noninteractive apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y git cron supervisor libxml2-dev libxslt1-dev python-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -q -y git cron supervisor libxml2-dev libxslt1-dev python-dev postgresql-client
 RUN mkdir -p /var/log/supervisor
 RUN mkdir -p /var/log/ckan/std
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
