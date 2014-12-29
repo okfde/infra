@@ -62,6 +62,10 @@ Namely and in this order, changing the ckan DB password, initializing the DB for
 Assuming that all works, you can finally start the fourth container:
 
     sudo docker run -d -p 80:80 --link db:db --link solr:solr --link redis:redis offenedaten_de
+    
+You can safely delete the git repo, or at least remove the DB password stored in the customconfig.ini file.
+    
+    
 
 #Base data
 Now we move on to putting in the data basics into the CKAN instance.
