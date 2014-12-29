@@ -47,7 +47,11 @@ and
     
 respectively.
 
-Before you stop editing, change the line
+Whilst you're editing, edit the postinstall.sh file and change the -h parameter in the command
+
+    docker run -i -t --link db:db offenedaten_de bin/bash -c 'psql -U ckan -h 172.17.0.11 -d ckan -c \\password'
+
+to the postgres IP.
 
 Then type:
 
