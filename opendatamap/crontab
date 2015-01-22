@@ -1,0 +1,11 @@
+0 0 1 * * /home/matt/scripts/bingupdate.sh
+0 1 * * * /home/matt/scripts/getlatestulmdata.sh
+0 2 * * * /home/matt/scripts/govdatadownload.sh
+0 3 * * * /home/matt/scripts/rlpdownload.sh
+0 4 * * * /home/matt/scripts/simplecatsdownload.sh
+0 5 * * * /home/matt/scripts/koelndownload.sh
+30 5 * * * /home/matt/scripts/bonndownload.sh
+0 6 * * * /home/matt/scripts/moersdownload.sh
+0 7 * * * /home/matt/scripts/dbchecks.sh
+0 8 * * * /home/matt/scripts/updatesite.sh
+0 11 * * Thu /home/matt/scripts/getlatesthamburgdata.sh
