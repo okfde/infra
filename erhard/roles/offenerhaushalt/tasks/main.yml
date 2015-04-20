@@ -2,4 +2,4 @@
 - name: Install Docker-py
   pip: name=docker-py
 - name: ensure offenerhaushalt container is running
-  docker: image=milafrerichs/offenerhaushalt name=offenerhaushalt ports=5000:5000
+  docker: image=milafrerichs/offenerhaushalt name=offenerhaushalt command="python offenerhaushalt/manage.py freeze"
