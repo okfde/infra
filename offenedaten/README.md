@@ -1,4 +1,6 @@
-offenedaten.de (beta) server config
+### Do not believe anything you read here! CKAN is installed from source and other things are using Docker. Hopefully we can switch to Docker soon if the CKAN folks decide which Docker option to recommend. There are possibly a few useful things still in this repo, and the .ini file is here too.
+
+offenedaten.de server config
 ====================================
 
 This directory contains configuration for
