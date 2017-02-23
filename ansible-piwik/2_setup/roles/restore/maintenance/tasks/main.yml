@@ -1,0 +1,41 @@
+---
+
+- name: "Configure Piwik Dump Command"
+  template:
+    src: piwik-dump.sh.j2
+    mode: "0777"
+    owner: root
+    group: root
+    dest: "/root/piwik-dump.sh"
+
+# https://piwik.org/docs/setup-auto-archiving/
+
+- name: "Configure Piwik Archive Command"
+  template:
+    src: piwik-archive.sh.j2
+    mode: "0777"
+    owner: "{{ nginx.user }}"
+    group: "{{ nginx.user }}"
+    dest: "{{ piwik.locations.install }}piwik-archive.sh"
+
+- name: "Initial Archiving Piwik (this may take long, get another coffee)"
+  shell: "sh {{ piwik.locations.install }}piwik-archive.sh"
+
+- name: "Setting up Piwik Archive Cron Job"
+  cron:
+    env: "{{ item.env }}"
+    name: "{{ item.name }}"
+    job: "{{ item.job }}"
+    user: "root"
+    minute: "5" # every hour on minute 5
+  with_items:
+    - env: true
+      name: MAILTO
+      job: "{{ piwik.cron.mail }}"
+    - env: false
+      name: cmd
+      job: "sh {{ piwik.locations.install }}piwik-archive.sh"
+
+# test
+# /var/www/piwik-archive.sh
+# tail -f /var/www/piwik-archive.log

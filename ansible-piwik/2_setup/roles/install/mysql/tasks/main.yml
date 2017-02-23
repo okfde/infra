@@ -1,0 +1,79 @@
+---
+- name: "Install mysql packages"
+  apt:
+    name: "{{item}}"
+    state: installed
+  with_items:
+    - "mysql-server"
+    - "python-mysqldb" # Install MySQLdb Python package, mandatory to manage MySQL with ansible
+
+- name: "Start mysql service"
+  service:
+     name: "{{ mysql.service }}"
+     state: started
+     enabled: yes
+
+- name: "Check empty mysql admin password (fails if not first run)"
+  action: "shell mysql -h localhost -u root -e quit"
+  ignore_errors: yes
+  no_log: yes
+  register: mysql_emptypass
+
+# "localhost" needs to be the last item for idempotency, see http://ansible.cc/docs/modules.html#mysql-user
+- name: "On first run: Change root user password "
+  ignore_errors: yes
+  mysql_user: >
+    login_user=root
+    login_password=''
+    name=root
+    host={{ item }}
+    password={{ mysql.admin_pass }}
+    priv=*.*:ALL,GRANT
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+  when: mysql_emptypass|success
+
+- name: "Remove the mysql test database"
+  mysql_db:
+    login_user: "{{ mysql.admin_user }}"
+    login_password: "{{ mysql.admin_pass }}"
+    db: test
+    state: absent
+
+- name: "Delete anonymous mysql server user for host {{ ansible_hostname }}"
+  mysql_user:
+    login_user: "{{ mysql.admin_user }}"
+    login_password: "{{ mysql.admin_pass }}"
+    name: ''
+    host_all: yes
+    state: absent
+
+- name: "Delete anonymous mysql server user for localhost"
+  mysql_user:
+    login_user: "{{ mysql.admin_user }}"
+    login_password: "{{ mysql.admin_pass }}"
+    name: ''
+    host: "localhost"
+    state: absent
+
+- name: "Install piwik mysql users"
+  mysql_user:
+    login_user: "{{ mysql.admin_user }}"
+    login_password: "{{ mysql.admin_pass }}"
+    name: "{{ mysql.piwik_user }}"
+    password: "{{ mysql.piwik_pass }}"
+    priv: "*.*:ALL,GRANT"
+    state: present
+
+- name: "Create piwik database"
+  mysql_db:
+    login_user: "{{ mysql.admin_user }}"
+    login_password: "{{ mysql.admin_pass }}"
+    encoding: "utf8"
+    db: "{{ mysql.piwik_db }}"
+    state: present
+
+

@@ -1,0 +1,17 @@
+---
+- name: "Setup Piwik Server"
+  hosts: piwik
+  remote_user: root
+  roles:
+#    - setup/disable-passwort-login
+#    - setup/apt-update
+#    - setup/basics
+#    - setup/mail
+#    - install/mysql
+    - install/nginx
+#    - install/php
+#    - install/piwik
+#    - install/geoip
+#    - restore/settings
+#    - restore/database
+    - restore/maintenance

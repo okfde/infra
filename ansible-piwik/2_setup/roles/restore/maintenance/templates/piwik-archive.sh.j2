@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo -u {{ nginx.user }} {{ php.bin }} {{ piwik.locations.dest }}/console core:archive --url=http://{{ piwik.trusted_hosts[0] }}/ > {{ piwik.locations.install }}piwik-archive.log

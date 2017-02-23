@@ -1,0 +1,46 @@
+---
+mysql:
+  admin_pass: "YOUR_MYSQL_ADMIN_PASSWORD"
+  piwik_pass: "YOUR_MYSQL_USER_PASSWORD"
+  admin_user: "root"
+  piwik_user: "piwik"
+  piwik_db: "piwik"
+  service: "mysql"
+  restore: "piwik.sql.bz2"
+  host: "127.0.0.1"
+piwik:
+  mysql_piwik_salt: "YOUR_PIWIK_SALT_FROM_PREVIOUS_INSTALLATION"
+  trusted_hosts:
+    - "YOUR_PIWIK_DOMAIN"
+  source:
+    url: "http://builds.piwik.org"
+    file: "latest.zip"
+  locations:
+    tmp: "/tmp"
+    install: "/var/www/"
+    dest: "/var/www/piwik"
+  cron:
+    mail: "YOUR_EMAIL_ADDRESS_WHERE_WARNINGS_ARE_SENT_TO"
+nginx:
+  user: "www-data"
+  group: "www-data"
+  service: "nginx"
+  server_name: "localhost"
+geoip:
+  url: "http://geolite.maxmind.com/download/geoip/database"
+  file: "GeoLiteCity.dat.gz"
+  dest: "GeoIPCity.dat"
+php:
+  socket: "/run/php/php7.0-fpm.sock"
+  service: "php7.0-fpm"
+  bin: "/usr/bin/php"
+system:
+  basics:
+    - zip
+    - htop
+    - unzip
+    - bzip2
+mail:
+  user: "YOUR_GMAIL_EMAIL_ADDRESS"
+  pass: "YOUR_GMAIL_EMAIL_PASSWORD"
+  relayhost: "[smtp.gmail.com]:587"

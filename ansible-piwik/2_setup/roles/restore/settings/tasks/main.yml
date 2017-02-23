@@ -1,0 +1,8 @@
+---
+- name: "Configure Piwik"
+  template:
+    owner: "{{ nginx.user }}"
+    group: "{{ nginx.user }}"
+    src: config.ini.php.j2
+    dest: "{{ piwik.locations.dest }}/config/config.ini.php"
+

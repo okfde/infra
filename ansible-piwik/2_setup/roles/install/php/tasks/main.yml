@@ -1,0 +1,29 @@
+---
+- name: "Install php7.0-fpm"
+  apt:
+    name: "{{item}}"
+    state: installed
+  with_items:
+    - php7.0
+    - php7.0-curl
+    - php7.0-gd
+    - php7.0-cli
+    - php7.0-mysql
+    - php7.0-mbstring
+    - php-xml
+    - php-geoip
+    - php7.0-fpm
+
+- name: "Configure php7.0-fpm"
+  lineinfile:
+    dest: "/etc/php/7.0/fpm/php.ini"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    backup: yes
+  with_items:
+   - { regexp: "^memory_limit", line: "memory_limit = 1024M" }
+
+- name: "Start php7.0-fpm"
+  service:
+    name: "{{ php.service }}"
+    state: started

@@ -1,0 +1,40 @@
+---
+- name: "Create Piwik install folder"
+  file:
+    path: "{{ piwik.locations.install }}"
+    owner: "{{ nginx.user }}"
+    group: "{{ nginx.group }}"
+    mode: "0755"
+    state: directory
+
+- name: "Fetch & unzip latest Piwik release"
+  unarchive:
+    src: "{{ piwik.source.url }}/{{ piwik.source.file }}"
+    dest: "{{ piwik.locations.install }}"
+    owner: "{{ nginx.user }}"
+    group: "{{ nginx.group }}"
+    mode: "0755"
+    remote_src: yes
+
+- name: "Ensure Piwik writeable files"
+  file:
+    path: "{{ piwik.locations.dest }}/{{ item }}"
+    owner: "{{ nginx.user }}"
+    group: "{{ nginx.group }}"
+    mode: "0755"
+  with_items:
+    - "piwik.js"
+
+- name: "Create Piwik writeable folders"
+  file:
+    path: "{{ piwik.locations.dest }}/{{ item }}"
+    owner: "{{ nginx.user }}"
+    group: "{{ nginx.group }}"
+    mode: "0755"
+    state: directory
+    directory_mode: yes
+    recurse: yes
+  with_items:
+    - ""
+    - "config"
+    - "tmp"

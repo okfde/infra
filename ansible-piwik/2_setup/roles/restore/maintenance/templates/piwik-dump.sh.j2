@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /root/
+mysqldump -u root --databases {{ mysql.piwik_db }} | bzip2 > piwik.sql.bz2

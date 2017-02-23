@@ -1,0 +1,6 @@
+---
+- name: Placing key user root
+  authorized_key: user=root key="{{ lookup('file', '../files/id_rsa_piwik.pub') }}"
+
+- name: Placing key user piwik
+  authorized_key: user=piwik key="{{ lookup('file', '../files/id_rsa_piwik.pub') }}"

@@ -1,0 +1,13 @@
+---
+- name: "Fetch latest database"
+  sudo: yes
+  get_url:
+     url: "{{ geoip.url }}/{{ geoip.file }}"
+     dest: "{{ piwik.locations.dest }}/misc/"
+     mode: "0660"
+     owner: "{{ nginx.user }}"
+     group: "{{ nginx.group }}"
+
+- name: "Extract database"
+  sudo: yes
+  action: shell gunzip -c {{ piwik.locations.dest }}/misc/{{ geoip.file }} > {{ piwik.locations.dest }}/misc/{{ geoip.dest }}

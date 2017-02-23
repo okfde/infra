@@ -1,0 +1,92 @@
+---
+- name: "Install nginx"
+  apt:
+    name: "nginx"
+    state: present
+
+- name: "Stop nginx"
+  service:
+    name: "nginx"
+    state: stopped
+
+- name: "Check for old default nginx config"
+  stat: path="/etc/nginx_org"
+  register: nginx_org_stat
+
+- name: "Backup default nginx default config"
+  command: mv /etc/nginx /etc/nginx_org
+  when: nginx_org_stat.stat.exists == False
+
+- name: "Check for nginx config"
+  stat: path="/etc/nginx"
+  register: nginx_stat
+
+- name: "Remove nginx config folder"
+  file:
+      state: absent
+      path: "/etc/nginx"
+  when: nginx_stat.stat.exists == True
+
+- name: "Set nginx config folder permissions" # workaround for bug in ansible copy module if copying subfolders
+  file:
+    path: "{{ item }}"
+    mode: "0755"
+    owner: root
+    group: root
+    state: directory
+    recurse: yes
+  with_items:
+    - "/etc/nginx/"
+    - "/etc/nginx/apps"
+    - "/etc/nginx/sites-available"
+    - "/etc/nginx/sites-enabled"
+    - "/etc/nginx/apps/piwik"
+
+- name: "Copy nginx config"
+  copy:
+     src: ./files/nginx/
+     dest: /etc/nginx/
+     directory_mode: no
+     owner: root
+     group: root
+     mode: "0755"
+
+- name: "Configure piwik app"
+  template:
+    src: piwik.app.conf.j2
+    dest: /etc/nginx/apps/piwik/piwik.conf
+
+- name: "Configure piwik site"
+  template:
+    src: piwik.site.conf.j2
+    dest: /etc/nginx/sites-available/piwik
+
+- name: "Configure php upstream"
+  template:
+    src: upstream_phpcgi.conf.j2
+    dest: /etc/nginx/upstream_phpcgi.conf
+
+- name: "Create nginx cache"
+  file:
+     path: "{{ item }}"
+     state: directory
+     owner: "{{ nginx.user }}"
+     group: "{{ nginx.group }}"
+     mode: "0700"
+  with_items:
+     - "/var/cache/nginx"
+     - "/var/cache/nginx/fcgicache"
+
+- name: "Create sites symlinks"
+  file:
+    src: "/etc/nginx/sites-available/{{ item }}"
+    dest: "/etc/nginx/sites-enabled/{{ item }}"
+    state: link
+  with_items:
+     - "default"
+     - "piwik"
+
+- name: "Start nginx"
+  service:
+    name: "nginx"
+    state: started
