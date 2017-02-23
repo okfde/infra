@@ -79,7 +79,7 @@ mail:
 
 First, on a fresh Ubuntu Installation, it will copy the public ssh key and enable root ssh access.
 
-run "1_access/run.sh" & enter the server user password
+execute "run.sh" in "1_access" & enter the server user password
 
 Second, connection will be made with this key and the password login will be disabled.
 
@@ -89,7 +89,7 @@ The mysql dump will be uploaded and restored. (This includes your old users & pa
 
 Initial Piwik archiving is applied and a hourly cron job created.
 
-run "2_setup/run.sh"
+execute "run.sh" in "2_setup"
 
 Restart the VM and Piwik will be available on port 80 of your Virtual Machine.
 
