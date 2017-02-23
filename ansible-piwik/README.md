@@ -1,11 +1,10 @@
+# DO NOT RUN ON A SERVER WITH EXISTING OTHER SERVICES/APPS
+
 # Piwik in an own virtual machine
 
 Ansible Playbook to install Piwik (Nginx, PHP7, MYSQL) with Auto-Archiving, GeoIP Database, Outgoing Mail via Gmail-SMTP and restore a previous piwik installation.
 
 WARNING: This assumes that nothing except piwik will run in the VM. (e.g. the ngnix default configuration is removed)
-
-DO NOT RUN ON A SERVER WITH OTHER SERVICES/APPS
-
 Create unique ssh deploy keys, so ansible cannot connect accidentally to another server and screw it up.
 
 Needed:
@@ -38,13 +37,17 @@ You can create such a dump in your old installation with
 
 ### create file "hosts" in "1_access"
 
-`[piwik]
-YOUR_IP ansible_port=YOUR_PORT`
+```
+[piwik]
+YOUR_IP ansible_port=YOUR_PORT
+```
 
 ### create file "hosts" in "2_setup"
 
-`[piwik]
-YOUR_IP ansible_port=YOUR_PORT ansible_ssh_private_key_file=../files/id_rsa_piwik`
+```
+[piwik]
+YOUR_IP ansible_port=YOUR_PORT ansible_ssh_private_key_file=../files/id_rsa_piwik
+```
 
 replace YOUR_IP with your server ip 
 
@@ -52,7 +55,7 @@ replace YOUR_PORT with your server ssh port (beware, if it's virtual machine, it
 
 ### copy "2_setup/group_vars/all.yml.dist" to "2_setup/group_vars/all.yml" and fill in your settings into all UPPERCASED VARIABLES
 
-`
+```
 mysql:
    admin_pass: "YOUR_MYSQL_ADMIN_PASSWORD"
    piwik_pass: "YOUR_MYSQL_USER_PASSWORD"
@@ -69,7 +72,7 @@ mail:
   user: "YOUR_GMAIL_EMAIL_ADDRESS"
   pass: "YOUR_GMAIL_EMAIL_PASSWORD"
 …
-`
+```
 
 
 ## RUN
