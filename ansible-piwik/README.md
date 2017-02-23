@@ -1,11 +1,11 @@
-# DO NOT RUN ON A SERVER WITH EXISTING OTHER SERVICES/APPS
-
 # Piwik in an own virtual machine
 
 Ansible Playbook to install Piwik (Nginx, PHP7, MYSQL) with Auto-Archiving, GeoIP Database, Outgoing Mail via Gmail-SMTP and restore a previous piwik installation.
 
 WARNING: This assumes that nothing except piwik will run in the VM. (e.g. the ngnix default configuration is removed)
 Create unique ssh deploy keys, so ansible cannot connect accidentally to another server and screw it up.
+
+## DO NOT RUN ON A SERVER WITH EXISTING OTHER SERVICES/APPS
 
 Needed:
 * Ubuntu Server (ubuntu-server-16.04.1) in a Virtual Machine (2GB RAM, min. 30GB HD)
