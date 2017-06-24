@@ -1,0 +1,15 @@
+[Unit]
+Description=Etherpad-lite, the collaborative editor.
+After=syslog.target network.target
+Wants=mysql.service
+
+[Service]
+Type=simple
+User=etherpad
+Group=etherpad
+WorkingDirectory={{ etherpad.home + '/' + etherpad.repository_name }}/bin
+ExecStart={{ etherpad.home + '/' + etherpad.repository_name }}/bin/run.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

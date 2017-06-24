@@ -1,0 +1,17 @@
+---
+- name: "Setup Etherpad Server"
+  hosts: etherpad
+  remote_user: root
+  roles:
+    - check/server
+    - setup/disable-passwort-login
+    - setup/apt-update
+    - setup/basics
+    - setup/mail
+    - install/node
+    - install/mysql
+    - install/etherpad
+    - install/etherpad-users
+    - restore/maintenance
+#    - restore/mysql
+#    - restore/sqlite

@@ -1,0 +1,16 @@
+---
+- name: Configuring brand new Ubuntu
+  hosts: etherpad
+  gather_facts: no
+  pre_tasks:
+    - name: 'apt-get update'
+      raw: sudo apt-get update
+    - name: 'install python2' #ansible needs this older python version
+      raw: sudo apt-get -y install python-simplejson
+  remote_user: etherpad
+  roles:
+    - copy-keys
+    - enable-root-user-ssh-access
+  become: true
+  become_user: root
+  become_method: sudo

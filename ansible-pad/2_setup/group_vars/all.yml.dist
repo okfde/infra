@@ -1,0 +1,69 @@
+---
+mysql:
+  admin_pass: "YOUR_MYSQL_ADMIN_PASSWORD"
+  admin_user: "root"
+  service: "mysql"
+  restore: "etherpad.sql.latest.bz2"
+  host: "127.0.0.1"
+
+system:
+  basics:
+    - zip
+    - htop
+    - unzip
+    - bzip2
+
+mail:
+  user: "YOUR_GMAIL_EMAIL_ADDRESS"
+  pass: "YOUR_GMAIL_EMAIL_PASSWORD"
+  rootmailalias: "YOUR_ROOT_ALIAS_EMAIL_ADDRESS"
+  relayhost: "[smtp.gmail.com]:587"
+  hostname: "etherpad"
+
+nodejs:
+  version: "6.x"
+  npm_install_user: root
+  npm_config_prefix: "/usr/local/lib/npm"
+  npm_config_unsafe_perm: "false"   # Set to true to suppress the UID/GID switching when running package scripts. If set explicitly to false, then installing as a non-root user will fail.
+  npm_global_packages: [] # Define a list of global packages to be installed with NPM.
+  #  # Install a specific version of a package.
+  #  - name: jslint
+  #    version: 0.9.3
+  #  # Install the latest stable release of a package.
+  #  - name: node-sasss
+
+etherpad:
+   admin_pass: 'YOUR_PAD_ADMIN_PASSWORD'
+   database_pass: 'YOUR_PAD_DATABASE_USER_PASSWORD'
+   basics:
+      - build-essential
+      - pkg-config
+      - libssl-dev
+      - libpq-dev
+      - curl
+      - git
+   system_name: 'etherpad'
+   user: 'etherpad'
+   group: 'etherpad'
+   home: '/var/local/etherpad'
+   dest_dir: '/var/local/etherpad/etherpad-lite'
+   src_dir: '/usr/local/src/etherpad'
+   log_dir: '/var/log/etherpad'
+   version: 'master'
+   title: 'Etherpad OKF DE'
+   welcome_text: Willkommen im Pad der OKF!
+   database_user: 'etherpad'
+   database_host: "127.0.0.1"
+   database_port: '3306'
+   database_name: 'etherpad'
+   bind: '0.0.0.0'
+   port: '9001'
+   admin_name: 'admin'
+   repository_address: 'https://github.com/ether'
+   repository_name: 'etherpad-lite'
+   plugins:
+      - 'adminpads'
+      - 'hide_referrer'
+      - 'headings2'
+      - 'markdown'
+      - 'ether-o-meter'

@@ -1,0 +1,45 @@
+---
+
+- name: Stop etherpad-lite
+  service:
+    name: 'etherpad'
+    state: 'stopped'
+
+- name: "Remove existing ep_users"
+  file:
+    path: '{{ etherpad.home }}/{{ etherpad.repository_name }}/node_modules/ep_users'
+    state: 'absent'
+
+- name: Clone ep_users source code
+  git:
+    repo: 'https://github.com/ffalt/ep_users.git'
+    dest: '{{ etherpad.home }}/{{ etherpad.repository_name }}/node_modules/ep_users'
+    update: yes
+  become: yes
+  become_user: '{{ etherpad.user }}'
+
+- name: Copy ep_users config file
+  copy:
+    src: settings.json
+    dest: '{{ etherpad.home }}/{{ etherpad.repository_name }}/node_modules/ep_users/settings.json'
+  become: yes
+  become_user: '{{ etherpad.user }}'
+
+- name: Install ep_users packages based on package.json
+  npm:
+    path: '{{ etherpad.home + "/" + etherpad.repository_name + "/node_modules/ep_users"}}'
+  become: yes
+  become_user: '{{ etherpad.user }}'
+
+- name: Import etherpad create_ep_tables.sql
+  mysql_db:
+    state: import
+    login_user: "{{ etherpad.database_user }}"
+    login_password: "{{ etherpad.database_pass }}"
+    name: "{{ etherpad.database_name }}"
+    target: '{{ etherpad.home }}/{{ etherpad.repository_name }}/node_modules/ep_users/sql/create_ep_tables.sql'
+
+- name: Ensure that etherpad-lite is restarted
+  service:
+    name: 'etherpad'
+    state: 'started'

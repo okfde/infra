@@ -1,0 +1,50 @@
+{
+  "allow_public_pads": true,
+  "allow_registration": false,
+  "lang": "DE",
+  "name": "OKF DE Pad",
+  "terms": "no liability for nothing",
+  "mail": {
+    "disabled": false,
+    "location": "https://pad.okfn.de",
+    "mode": "sendmail",
+    "sendmail": {
+      "sendmail": true,
+      "newline": "unix",
+      "path": "/usr/sbin/sendmail"
+    },
+    "smpt": {
+      "host": "smtp.example.com",
+      "port": 465,
+      "secure": true,
+      "auth": {
+        "user": "you@example.com",
+        "pass": "userpass"
+      }
+    },
+    "sender": "no-reply@okfn.de",
+    "text": {
+      "subjectprefix": "[OKF DE Pad]",
+      "invitation": {
+        "subject": "Group Invitation",
+        "msg": "User <fromuser> has added you to the private group <groupname>.\n\nYou can now begin to work collaboratively with the group members and read, edit any pad within this group.\n\nClick here to get started: <url>"
+      },
+      "registration": {
+        "subject": "Registration",
+        "msg": "Hello,\n\nYour registration was successful! To complete your registration please click on the following link: \n\n<url>\n\nAfter completing registration, please log in with your new account."
+      },
+      "resetpw": {
+        "subject": "Password reset",
+        "msg": "Hello,\n\nA password request has been started for your email address.\n\nIf it wasn't you, you can safely ignore this email.\n\nIf you requested the reset, please visit following link: \n\n<url>\n\n to change the password."
+      },
+      "newpw": {
+        "subject": "New Password",
+        "msg": "Hello,\n\nthe administrator has set a new password for you.\n\nYour new Password for your Account:\n\n<password>"
+      },
+      "invitateunregistered": {
+        "subject": "Invitation",
+        "msg": "Hello,\n\n<fromuser> has added you to the OKF DE Pad Group: <groupname>. Please register at <url> to enter the group."
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+---
+- name: "Configure mysqldump Command"
+  template:
+    src: .my.cnf.j2
+    owner: root
+    group: root
+    dest: "/root/.my.cnf"
+
+- name: "Configure etherpad Dump Command"
+  template:
+    src: etherpad-dump.sh.j2
+    mode: "0777"
+    owner: root
+    group: root
+    dest: "/root/etherpad-dump.sh"

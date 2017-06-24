@@ -1,0 +1,8 @@
+---
+- name: Allow root SSH access
+  lineinfile:
+    dest: "/etc/ssh/sshd_config"
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin yes"
+    state: present
+  notify: restart_sshd

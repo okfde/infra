@@ -1,0 +1,3 @@
+---
+- name: Placing key user root
+  authorized_key: user=root key="{{ lookup('file', '../files/id_rsa_etherpad.pub') }}"

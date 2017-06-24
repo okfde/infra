@@ -1,0 +1,45 @@
+---
+- name: "Test if etherpad database dump file exists"
+  stat:
+    path: "/tmp/{{ mysql.restore }}"
+  register: restore_file
+
+- name: "Copy old etherpad database dump"
+  copy:
+    src: "../files/{{ mysql.restore }}"
+    dest: "/tmp/{{ mysql.restore }}"
+    owner: root
+    group: root
+    mode: "0755"
+  when: restore_file.stat.exists == False
+
+- name: "Drop current etherpad database"
+  mysql_db:
+    login_user: "{{ mysql.admin_user }}"
+    login_password: "{{ mysql.admin_pass }}"
+    db: "{{ etherpad.database_name }}"
+    state: absent
+  when: restore_file.stat.exists == False
+
+- name: "Restore old etherpad database dump (this may take a while, get a coffee)"
+  async: 10000000000000
+  poll: 10
+  mysql_db:
+    login_user: "{{ mysql.admin_user }}"
+    login_password: "{{ mysql.admin_pass }}"
+    state: import
+    name: "{{ etherpad.database_name }}"
+    target: "/tmp/{{ mysql.restore }}"
+  when: restore_file.stat.exists == False
+
+- name: "Remove old etherpad database dump"
+  file:
+    path: "/tmp/{{ mysql.restore }}"
+    state: absent
+  when: restore_file.stat.exists == False
+
+- name: "Run MySQL upgrade"
+  async: 10000000000000
+  poll: 10
+  command: mysql_upgrade -u {{ mysql.admin_user }} --password="{{ mysql.admin_pass }}" --force
+  when: restore_file.stat.exists == False
