@@ -3,7 +3,7 @@ mysql:
   admin_pass: "YOUR_MYSQL_ADMIN_PASSWORD"
   admin_user: "root"
   service: "mysql"
-  restore: "etherpad.sql.latest.bz2"
+  restore: "etherpad.sql.bz2"
   host: "127.0.0.1"
 
 system:
