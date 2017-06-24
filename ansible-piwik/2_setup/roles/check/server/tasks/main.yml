@@ -1,0 +1,9 @@
+---
+- name: "Check if this is the right server"
+  stat:
+    path: /root/piwik
+  register: stat_result
+
+- fail:
+    msg: "The system may not be provisioned, missing id file"
+  when: stat_result.stat.exists == false

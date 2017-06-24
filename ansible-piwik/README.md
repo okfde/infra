@@ -20,6 +20,11 @@ Needed:
 
 you must use `piwik` as your main user name, password as you choose
 
+create an empty file in `/root/`
+
+`touch /root/piwik`
+
+
 ### add files to ansible "files" folder
 
 add ssh keys

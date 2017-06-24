@@ -1,3 +1,7 @@
 #!/bin/bash
 cd /root/
-mysqldump -u root --databases {{ mysql.piwik_db }} | bzip2 > piwik.sql.bz2
+[ -d piwik-backups ] || mkdir piwik-backups
+now=$(date +"%Y_%m_%d")
+mysqldump -u {{ mysql.admin_user }} --databases {{ mysql.piwik_db }} | bzip2 > piwik-backups/piwik.$now.sql.bz2
+ln -s /root/piwik-backups/piwik.$now.sql.bz2 /root/piwik.latest.sql.bz2
+echo "done."

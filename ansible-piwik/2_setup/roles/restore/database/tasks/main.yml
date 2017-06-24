@@ -20,7 +20,7 @@
     db: "{{ mysql.piwik_db }}"
     state: absent
 
-- name: "Restore old piwik database dump (this may take long, get a coffee)"
+- name: "Restore old piwik database dump (this may take a while, get a coffee)"
   async: 10000000000000
   poll: 10
   mysql_db:

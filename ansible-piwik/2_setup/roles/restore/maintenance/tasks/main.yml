@@ -1,4 +1,10 @@
 ---
+- name: "Configure mysqldump Command"
+  template:
+    src: .my.cnf.j2
+    owner: root
+    group: root
+    dest: "/root/.my.cnf"
 
 - name: "Configure Piwik Dump Command"
   template:
@@ -18,7 +24,7 @@
     group: "{{ nginx.user }}"
     dest: "{{ piwik.locations.install }}piwik-archive.sh"
 
-- name: "Initial Archiving Piwik (this may take long, get another coffee)"
+- name: "Initial Archiving Piwik (this may take a while, get another coffee)"
   shell: "sh {{ piwik.locations.install }}piwik-archive.sh"
 
 - name: "Setting up Piwik Archive Cron Job"
