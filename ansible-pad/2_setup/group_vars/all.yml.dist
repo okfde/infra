@@ -51,7 +51,7 @@ etherpad:
    log_dir: '/var/log/etherpad'
    version: 'master'
    title: 'Etherpad OKF DE'
-   welcome_text: Willkommen im Pad der OKF!
+   welcome_text:   Willkommen im Pad der OKF!\n\nBugs oder Hugs bitte an mailto:admin@okfn.de\n
    database_user: 'etherpad'
    database_host: "127.0.0.1"
    database_port: '3306'

@@ -1,17 +1,17 @@
 ---
 - name: "Test if sqlite database file exists"
   stat:
-    path: "/Users/ffalt/Abu/Backup/etherpad/opt/etherpad-lite/var/sqlite-etherpad-lite.db"
+    path: "sqlite-etherpad-lite.db"
   register: restore_sqlite_file
 
 - name: "Copy old sqlite pad database"
   copy:
-    src: "{{etherpad.restore.sqlite.filename}}"
+    src: "sqlite-etherpad-lite.db"
     dest: "{{ etherpad.dest_dir }}/var/sqlite-etherpad-lite.db"
     owner: '{{ etherpad.user }}'
     group: '{{ etherpad.group }}'
     mode: "0755"
-  when: restore_file.stat.exists == False
+  when: restore_sqlite_file.stat.exists == False
 
 - name: "Copy script migrate_SQlite2MySQL.js"
   copy:
@@ -20,4 +20,4 @@
     owner: '{{ etherpad.user }}'
     group: '{{ etherpad.group }}'
     mode: "0755"
-  when: restore_file.stat.exists == False
+  when: restore_sqlite_file.stat.exists == False
