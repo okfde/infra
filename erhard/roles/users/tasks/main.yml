@@ -1,0 +1,21 @@
+---
+- name: ensure the tech team users are there
+  user: name="{{item.name}}"
+        comment="{{item.comment}}"
+        shell="{{item.shell | default('/bin/bash')}}"
+        state=present
+  when: ansible_hostname == "erhard"
+  with_flattened:
+  - users.erhard
+  tags:
+  - users
+
+- name: ensure the corresponding keys are there
+  authorized_key: user={{ item.0.name }}
+                  key="{{ lookup('file', inventory_dir + '/files/keys/' + item.1) }}"
+                  state=present
+  with_subelements:
+  - users.erhard
+  - keys
+  tags:
+  - keys

@@ -1,0 +1,16 @@
+---
+- hosts: erhard
+  sudo: yes
+  vars_files:
+  - vars/users.yml
+  - vars/nginx.yml
+  roles:
+  - users
+  - jdauphant.nginx
+  - azavea.python
+  - ANXS.python
+  - angstwad.docker_ubuntu
+  - offenerhaushalt
+  handlers:
+    - name: start nginx
+      service: name=nginx state=started

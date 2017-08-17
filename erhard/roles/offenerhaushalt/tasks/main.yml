@@ -1,0 +1,5 @@
+---
+- name: Install Docker-py
+  pip: name=docker-py
+- name: ensure offenerhaushalt container is running
+  docker: image=milafrerichs/offenerhaushalt name=offenerhaushalt command="python offenerhaushalt/manage.py freeze"
